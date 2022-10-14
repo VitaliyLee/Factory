@@ -8,6 +8,8 @@ public class Movement
     {
         moveDirection = Vector3.forward;
     }
+
+    //Двигаем объект
     public void Move(float Speed, Transform CurrentTransform)
     {
         CurrentTransform.position += moveDirection * Speed * Time.fixedDeltaTime;

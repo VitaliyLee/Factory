@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
 {
@@ -17,20 +15,21 @@ public class EntryPoint : MonoBehaviour
 
     private CubeController cubeController;
     private SpawnTimer spawnTimer;
+    private int warmPoolerCount = 20; //Максимальное колличество кубов в пулере (должно быть равно максимальному ренджу дистанции для куба)
 
     void Start()
     {
         cubeController = new CubeController();
         spawnTimer = new SpawnTimer();
 
-        CubePoller.Warm(_cubePrefab, _cubeMovementDistance);
+        CubePoller.Warm(_cubePrefab, warmPoolerCount);//Прогрев пулера
     }
 
     private void FixedUpdate()
     {
-        cubeController.CubeMovement(_cubeSpeed, _cubeMovementDistance);
+        cubeController.CubeMovement(_cubeSpeed, _cubeMovementDistance);//Передвижение кубов
 
-        if (spawnTimer.TimeToSpawn(_spawnRate) <= 0)
+        if (spawnTimer.TimeToSpawn(_spawnRate) <= 0)//Проверка на то, сколько времени до появления нового куба
             CubePoller.SetCubePosition(transform);
     }
 }
